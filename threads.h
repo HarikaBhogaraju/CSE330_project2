@@ -1,19 +1,17 @@
 #ifndef THREADS_H
 #define THREADS_H
-#include <stdlib.h>
-#include <stddef.h>
-#include <ucontext.h>
+
 #include "q.h"
 
-extern struct TCB_t *runQ;
+extern struct TCB_t* runQ;
 
-void startThread(struct TCB_t *thread, void (*function)(void)){
+void startThread(void (*function)(void)){
 
 	//allocate a stack (via malloc) of a certain size (choose 8192)
 	void *stack = (void *)malloc(8192);
 
 	//allocate a TCB (via malloc)
-	thread = (struct TCB_t*)malloc(sizeof(struct TCB_t));
+	struct TCB_t* thread = (struct TCB_t*)malloc(sizeof(struct TCB_t));
 
 	//call init_TCB with appropriate arguments
 	init_TCB(thread, function, stack, 8192);

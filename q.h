@@ -5,7 +5,7 @@
 #include "tcb.h"
 
 
-struct TCB_t* RunQ;
+struct TCB_t* RunQ = (struct TCB_t*)malloc(sizeof(struct TCB_t));
 
 void InitQueue(struct TCB_t** head){
         *head = NULL;
@@ -18,8 +18,8 @@ struct TCB_t* newItem(){
 
 void addQueue(struct TCB_t** head, struct TCB_t* item){
         TCB_t* temp = (struct TCB_t*)malloc(sizeof(struct TCB_t));
-	temp = *head;
-	
+	       temp = *head;
+
         if (temp == NULL){
                 *head = item;
                 (*head)->next = *head;

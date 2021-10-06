@@ -58,7 +58,3 @@
 	void RotateQ(struct first* head) {
 		AddQueue(head, DeleteQueue(head));
 	}
-
-	void FreeItem(struct q_element* item) {
-		free(item);
-	}

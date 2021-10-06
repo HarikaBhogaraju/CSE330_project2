@@ -42,11 +42,11 @@ int main(int argc, char** argv){
 	else{
 
 	  InitQueue(&runQ);
-
+		printf("\n");
 		for(int i = 0;i<x;i++){
 			startThread(runTest);
 		}
-
+		printf("\n");
 		run();
 		return 0;
 	}

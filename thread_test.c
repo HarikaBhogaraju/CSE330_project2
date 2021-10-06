@@ -1,11 +1,16 @@
+/*
+* Fatimah Alyousef
+* CSE 330, Project2
+*/
 
 #include "threads.h"
-#include <unistd.h>
+#include <unistd.h>	//for linux
 
-int globalCount = 0, numOfThreads, it;
+int globalCount = 0, numOfThreads, it; //it is the number of time each thread should be exctuted
 
-void runTest() {
-
+void thread1() {
+	//thread keeps track of the number of threads
+	//localCount keeps track of the number of execution of each thread
 	int localCount = 1, thread = 1;
 
 	while (thread <= numOfThreads && localCount <= it) {
@@ -23,8 +28,8 @@ void runTest() {
 }
 
 int main() {
-	RunQ = (struct TCB_t*)malloc(sizeof(TCB_t));
-	InitQueue(&RunQ);
+	RunQ = (struct queue*)malloc(sizeof(queue));
+	InitQueue(RunQ);
 
 	scanf("%d,%d", &numOfThreads, &it); //read input
 
@@ -32,7 +37,7 @@ int main() {
 		printf("No Threads\n");
 	}
 
-	start_thread(runTest);
+	start_thread(&thread1);
 	run();
 
 

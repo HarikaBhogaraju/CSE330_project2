@@ -9,7 +9,7 @@ int glob = 1;
 
 
 void runTest1(){
-	int loc = 0;
+	int loc = 1;
 		while(1){
 			printf("This is %d th execution of thread 1 with global var value % d\n", loc, glob);
 			glob++;
@@ -19,7 +19,7 @@ void runTest1(){
 }
 
 void runTest2(){
-	int loc = 0;
+	int loc = 1;
 		while(1){
 			loc++;
 			printf("This is %d th execution of thread 2 with global var value % d\n", loc, glob);
@@ -30,7 +30,7 @@ void runTest2(){
 }
 
 void runTest3(){
-	int loc = 0;
+	int loc = 1;
 		while(1){
 			loc++;
 			printf("This is %d th execution of thread 3 with global var value % d\n", loc, glob);

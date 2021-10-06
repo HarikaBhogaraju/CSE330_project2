@@ -1,3 +1,5 @@
+//Harika Bhogaraju
+//1216938606
 #include <ucontext.h>
 #include <stdio.h>
 #include <string.h>
@@ -7,8 +9,6 @@ typedef struct TCB_T {
 	struct TCB_T* prev;
 	ucontext_t	context;
 } TCB_T;
-
-
 
 void init_tcb(TCB_T* tcb, void* function, void* stackp, int stack_size) {
 	memset(tcb, '\0', sizeof(TCB_T));

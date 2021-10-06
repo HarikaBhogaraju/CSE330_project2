@@ -1,3 +1,6 @@
+//Harika Bhogaraju
+//1216938606
+
 #include "threads.h"
 #include <unistd.h>
 
@@ -8,8 +11,8 @@ int y = 0; //execute each time
 void runTest() {
 
 	int loc = 1, i = 1;
+	for(i = 1;i<=x;){
 
-	while (i <= x && loc <= y) {
 		glob = glob+i;
 
 		printf("\n This is %d th execution of thread %d with global var value %d \n", loc, i, glob);
@@ -22,16 +25,19 @@ void runTest() {
 			loc++;
 			i = 1;
 		}
-
 	}
+}
 
+void read_int(){
+
+		scanf("%d,%d", &x, &y);
 }
 
 int main() {
-	RunQ = (struct first*)malloc(sizeof(first));
+	RunQ = (struct q*)malloc(sizeof(q));
 	InitQueue(RunQ);
 
-	scanf("%d,%d", &x, &y); //read input
+	read_int();
 
 	if (x == 0) {
 		printf("No Threads\n");

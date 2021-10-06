@@ -1,43 +1,43 @@
-/*
-* Fatimah Alyousef
-* CSE 330, Project2
-*/
-
 #include "threads.h"
-#include <unistd.h>	//for linux
+#include <unistd.h>
 
-int globalCount = 0, numOfThreads, it; //it is the number of time each thread should be exctuted
+int glob = 0;
+int x = 0; //num of threads
+int y = 0; //execute each time
 
-void thread1() {
-	//thread keeps track of the number of threads
-	//localCount keeps track of the number of execution of each thread
-	int localCount = 1, thread = 1;
+void runTest() {
 
-	while (thread <= numOfThreads && localCount <= it) {
-		globalCount += thread;
+	int loc = 1, i = 1;
 
-		printf("\n This is %d th execution of thread %d with global var value %d \n", localCount, thread, globalCount);
+	while (i <= x && loc <= y) {
+		glob = glob+i;
+
+		printf("\n This is %d th execution of thread %d with global var value %d \n", loc, i, glob);
+
 		yield();
 
-		thread++;
-		if (thread > numOfThreads) {
-			localCount++;
-			thread = 1;
+		i++;
+
+		if (i > x) {
+			loc++;
+			i = 1;
 		}
+
 	}
+
 }
 
 int main() {
-	RunQ = (struct queue*)malloc(sizeof(queue));
+	RunQ = (struct first*)malloc(sizeof(first));
 	InitQueue(RunQ);
 
-	scanf("%d,%d", &numOfThreads, &it); //read input
+	scanf("%d,%d", &x, &y); //read input
 
-	if (numOfThreads == 0) {
+	if (x == 0) {
 		printf("No Threads\n");
 	}
 
-	start_thread(&thread1);
+	startThread(&runTest);
 	run();
 
 

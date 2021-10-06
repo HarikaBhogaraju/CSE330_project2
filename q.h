@@ -1,77 +1,62 @@
-/*
-Fatimah Alyousef
-CSE 330, Project2
-Fall 2021
-*/
 
 #include <stdio.h>
 #include <stdlib.h>
 #include "tcb.h"
 
+	struct first{
+		TCB_T* first_element;
+	}first;
 
-	struct  q_element {
-		struct q_element* prev;
-		struct q_element* next;
-		int payLoad;
-	};
 
-	struct queue {
-		TCB_T* header; //header is a pointer to the first element of the queue.
-	}queue;
-
-	//1.	item = NewItem(); // returns a pointer to a new q-element
 	TCB_T* newItem() {
-		TCB_T* newElement = (TCB_T*)malloc(sizeof(TCB_T));
-		newElement->prev = NULL;
-		newElement->next = NULL;
-		return newElement;
+		TCB_T* item = (TCB_T*)malloc(sizeof(TCB_T));
+		item->prev = NULL;
+		item->next = NULL;
+		return item;
 	}
 
-	//2.	InitQueue(&head) // creates a empty queue, pointed to by the variable head.
+
 	void InitQueue(struct queue* head) {
-		head->header = NULL;
+		head->first_element = NULL;
 	}
 
-	//3.	AddQueue(&head, item) // adds a queue item, pointed to by item, to the queue pointed to by head.
+
 	void AddQueue(struct queue* head, struct TCB_T* item) {
-		if (head->header == NULL) {
-			//Base case: if the queue is empty
-			head->header = item;			// head points to first element
-			head->header->prev = item;	// prev should point at itself
-			head->header->next = item;	// next points to itself
-		}
+		if (head->first_element == NULL) {
+
+			head->first_element = item;
+			head->first_element->prev = item;
+			head->first_element->next = item;
+    }
 		else {
-			struct TCB_T* tail = head->header->prev;
-			item->next = head->header;	// next points to head
-			item->prev = tail;			// link first element to last element
-			head->header->prev = item; 	// set head tail to item
-			tail->next = item;			// make old tail next point to item
+			struct TCB_T* tail = head->first_element->prev;
+			item->next = head->first_element;
+			item->prev = tail;
+			head->first_element->prev = item;
+			tail->next = item;
 		}
 	}
 
-	//4.	item = DelQueue(&head) // deletes an item from head and returns a pointer to the deleted item
-	TCB_T* DelQueue(struct queue* head) {
+	TCB_T* DeleteQueue(struct queue* head) {
 		TCB_T* temp = (TCB_T*)malloc(sizeof(TCB_T));
-		temp = head->header; //save first element
+		temp = head->first_element;
 
-		if (head->header != NULL) {
-			//Base case: if the queue has one element
-			if (head->header->next == NULL) {
-				head->header = NULL;
+		if (head->first_element != NULL) {
+			if (head->first_element->next == NULL) {
+				head->first_element = NULL;
 			}
 			else {
-				temp->prev->next = temp->next; //second node prev points to third node
-				temp->next->next->prev = temp->prev; //third node points to second node
-				head->header = temp->next;
+				temp->prev->next = temp->next;
+				temp->next->next->prev = temp->prev;
+				head->first_element = temp->next;
 			}
 		}
 
 		return temp;
 	}
 
-	//5.	RotateQ(&head) // Moves the header pointer to the next element in the queue.
 	void RotateQ(struct queue* head) {
-		AddQueue(head, DelQueue(head));
+		AddQueue(head, DeleteQueue(head));
 	}
 
 	void FreeItem(struct q_element* item) {

@@ -6,11 +6,13 @@ struct TCB_t* runQ = NULL;
 int x = 0;
 int y = 0;
 int glob = 1;
+int loc = 0;
 
 
 void runTest1(){
-	int loc = 1;
+	int loc = 0;
 		while(1){
+			loc++;
 			printf("This is %d th execution of thread 1 with global var value % d\n", loc, glob);
 			glob++;
 			sleep(1);
@@ -19,7 +21,7 @@ void runTest1(){
 }
 
 void runTest2(){
-	int loc = 1;
+	int loc = 0;
 		while(1){
 			loc++;
 			printf("This is %d th execution of thread 2 with global var value % d\n", loc, glob);
@@ -29,49 +31,44 @@ void runTest2(){
 		}
 }
 
-void runTest3(){
-	int loc = 1;
-		while(1){
-			loc++;
-			printf("This is %d th execution of thread 3 with global var value % d\n", loc, glob);
-			glob++;
-			sleep(1);
-			yield();
-		}
+void read_ints (const char* file_name)
+{
+  FILE* file = fopen (file_name, "r");
+  fscanf(file,"%d,%d",&x,&y); 
+  fclose (file);        
+}
+void runTest(){
+	for(int i = 1;i<=y;i++){
+			loc = loc + glob;
+			printf("\n");
+                   	printf("This is %d th execution of thread %d  with global var value % d\n", i,glob,loc);
+			if(glob == x){
+				glob = 1;
+			}
+			else{
+				glob++;
+			}
+                        sleep(1);
+                        yield();
+	}	
 }
 
-int main(){
+int main(int argc, char** argv){
 
-	x = 2;
-	y = 3;
-
-	//printf("MAIN CALLED\n");
+	read_ints(argv[1]);
 
 	if(x == 0){
 		printf("No Threads\n");
 		return 0;
 	}
 	else{
-	//printf("else entered\n");
+	
 	struct TCB_t* threads[x];
-        //threads = (struct TCB_t*)calloc(x+1,sizeof(struct TCB_t));
-        //printf("threads allocated\n");
+        
         InitQueue(&runQ);
-        //printf("InitQ executed\n");
-
-	for(int i = 0;i<y;i++){
-		if(i % 3 == 1){
-			//printf("runtest1 called\n");
-			startThread(runTest1);
-		}
-		if(i % 3 == 2){
-			 //printf("runtest2 called\n");
-			startThread(runTest2);
-		}
-		if(i % 3 == 0){
-			 //printf("runtest3 called\n");
-			startThread(runTest3);
-		}
+        
+	for(int i = 0;i<x;i++){
+		startThread(runTest);
 	}
 
 	run();

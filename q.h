@@ -20,17 +20,17 @@
 
 
 	void AddQueue(struct first* head, struct TCB_T* item) {
-		if (head->element == NULL) { //No element yet
+		if (head->element == NULL) { //for only one element
 			head->element = item;
 			head->element->prev = item;
 			head->element->next = item;
     }
 		else {
-			struct TCB_T* tail = head->element->prev;
+			struct TCB_T* last = head->element->prev;
 			item->next = head->element;
-			item->prev = tail;
+			item->prev = last;
 			head->element->prev = item;
-			tail->next = item;
+			last->next = item;
 		}
 	}
 
@@ -42,9 +42,9 @@
 			if (head->element->next == NULL) {
 				head->element = NULL;
 			}
-			else { //reassigning pointers
-				deletedItem->prev->next = temp->next;
-				deletedItem->next->next->prev = temp->prev;
+			else {
+				deletedItem->prev->next = deletedItem->next;
+				deletedItem->next->next->prev = deletedItem->prev;
 				head->element = deletedItem->next;
 			}
 		}

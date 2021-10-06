@@ -18,8 +18,8 @@ void read_ints (const char* file_name)
 void runTest(){
 	for(int i = 1;i<=y;i++){
 			loc = loc + glob;
-			printf("\n");
-      printf("This is %d th execution of thread %d with global var value %d\n", i,glob,loc);
+			
+      printf("\n This is %d th execution of thread %d with global var value %d \n", i,glob,loc);
 			if(glob == x){
 				glob = 1;
 			}
@@ -42,13 +42,15 @@ int main(int argc, char** argv){
 	else{
 
 	  InitQueue(&runQ);
-		printf("\n");
+		
 		for(int i = 0;i<x;i++){
 			startThread(runTest);
 		}
-		printf("\n");
+		
 		run();
-		return 0;
+		
 	}
+	
+	return 0;
 
 }

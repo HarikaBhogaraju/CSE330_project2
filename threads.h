@@ -9,19 +9,19 @@ void startThread(void (*function)(void)){
 	TCB_T* tcb = (TCB_T*)malloc(sizeof(TCB_T));
 	//	call init_TCB with appropriate arguments
 	init_tcb(tcb, function, stack_pointer, 8192);
-	//	call addQ to add this TCB into the "RunQ" which is a global header pointer
+	//	call addQ to add this TCB into the "RunQ" which is a global first_element pointer
 	AddQueue(RunQ, tcb);
 }
 
 void run(){
 	ucontext_t parent;
 	getcontext(&parent);
-	swapcontext(&parent, &(RunQ->header->context));
+	swapcontext(&parent, &(RunQ->first_element->context));
 }
 
 void yield(){
 	ucontext_t prev;
 	getcontext(&prev);
 	RotateQ(RunQ);
-	swapcontext(&(RunQ->header->prev->context), &(RunQ->header->context));
+	swapcontext(&(RunQ->first_element->prev->context), &(RunQ->first_element->context));
 }

@@ -14,12 +14,12 @@
 	}
 
 
-	void InitQueue(struct first* head) {
+	void InitQueue(struct q* head) {
 		head->element = NULL;
 	}
 
 
-	void AddQueue(struct first* head, struct TCB_T* item) {
+	void AddQueue(struct q* head, struct TCB_T* item) {
 		if (head->element == NULL) { //for only one element
 			head->element = item;
 			head->element->prev = item;
@@ -34,7 +34,7 @@
 		}
 	}
 
-	TCB_T* DeleteQueue(struct first* head) {
+	TCB_T* DeleteQueue(struct q* head) {
 		TCB_T* deletedItem = (TCB_T*)malloc(sizeof(TCB_T));
 		deletedItem = head->element;
 
@@ -52,6 +52,6 @@
 		return deletedItem;
 	}
 
-	void RotateQ(struct first* head) {
+	void RotateQ(struct q* head) {
 		AddQueue(head, DeleteQueue(head));
 	}

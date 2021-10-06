@@ -5,7 +5,7 @@ struct TCB_t* runQ = NULL;
 
 int x = 0;
 int y = 0;
-int glob = 0;
+int glob = 1;
 
 
 void runTest1(){
@@ -59,7 +59,7 @@ int main(){
         InitQueue(&runQ);
         //printf("InitQ executed\n");
 
-	for(int i = 0;i<x;i++){
+	for(int i = 0;i<y;i++){
 		if(i % 3 == 1){
 			//printf("runtest1 called\n");
 			startThread(runTest1);

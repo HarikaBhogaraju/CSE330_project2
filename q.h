@@ -20,7 +20,7 @@
 
 
 	void AddQueue(struct first* head, struct TCB_T* item) {
-		if (head->element == NULL) {
+		if (head->element == NULL) { //No element yet
 			head->element = item;
 			head->element->prev = item;
 			head->element->next = item;
@@ -35,21 +35,21 @@
 	}
 
 	TCB_T* DeleteQueue(struct first* head) {
-		TCB_T* temp = (TCB_T*)malloc(sizeof(TCB_T));
-		temp = head->element;
+		TCB_T* deletedItem = (TCB_T*)malloc(sizeof(TCB_T));
+		deletedItem = head->element;
 
 		if (head->element != NULL) {
 			if (head->element->next == NULL) {
 				head->element = NULL;
 			}
-			else {
-				temp->prev->next = temp->next;
-				temp->next->next->prev = temp->prev;
-				head->element = temp->next;
+			else { //reassigning pointers
+				deletedItem->prev->next = temp->next;
+				deletedItem->next->next->prev = temp->prev;
+				head->element = deletedItem->next;
 			}
 		}
 
-		return temp;
+		return deletedItem;
 	}
 
 	void RotateQ(struct first* head) {
